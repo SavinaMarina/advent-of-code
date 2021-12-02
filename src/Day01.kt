@@ -9,9 +9,9 @@ fun main() {
         return cnt
     }
 	
-	fun part1f(input: List<Int>): Int {
-		return input.windowed(2).count { (x,y) -> y > x}
-	}
+    fun part1f(input: List<Int>): Int {
+        return input.windowed(2).count { (x,y) -> y > x}
+    }
 
     fun part2(input: List<Int>): Int {
 		var prevSum = 0
@@ -29,10 +29,10 @@ fun main() {
         return cnt
     }
 	
-	fun part2f(input: List<Int>): Int {
+    fun part2f(input: List<Int>): Int {
         return input.windowed(3) { it.sum() }
             .windowed(2).count { (x, y) -> y > x }
-	}
+    }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test").map { it.toInt() }
