@@ -67,6 +67,6 @@ fun main() {
     check(part2f(testInput) == 900)
 
     val input = readInput("Day02")
-    println(part1(input))
-    println(part2(input))
+    println(part1f(input))
+    println(part2f(input))
 }
