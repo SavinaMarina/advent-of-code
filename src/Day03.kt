@@ -6,16 +6,12 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val list = mutableListOf<Map<Char, Int>>()
-        for (i in input[0].indices) {
+        for (i in input[0].indices)
             list.add(input.groupingBy { it[i] }.eachCount())
-        }
-        var gammaRate = ""
-        for (m in list) {
-            gammaRate +=
-                if (m.getOrDefault('0', 0) > m.getOrDefault('1',0)) "0" else "1"
-        }
+        val gammaRate = list.joinToString("")
+            { if (it.getOrDefault('0', 0) > it.getOrDefault('1', 0)) "0" else "1" }.toInt(2)
         val total = "1".repeat(input[0].length).toInt(2)
-        return gammaRate.toInt(2) * (total - gammaRate.toInt(2))
+        return gammaRate * (total - gammaRate)
     }
 
     fun part1f(input: List<String>): Int {
@@ -33,7 +29,7 @@ fun main() {
         return (total - gammaRate) * gammaRate
     }
 
-    fun filterByPosition(input:List<String>, position:Int, filteringMethod: FilteringMethod): List<String> {
+    fun filterByPositionRecursively(input:List<String>, position:Int, filteringMethod: FilteringMethod): List<String> {
         val totalCount = input.size
         var countOf1 = 0
         for (v in input) {
@@ -57,13 +53,13 @@ fun main() {
         return if ((position == input[0].length - 1) || (filteredList.size == 1))
             filteredList
         else
-            filterByPosition(filteredList, position + 1, filteringMethod)
+            filterByPositionRecursively(filteredList, position + 1, filteringMethod)
     }
 
     fun part2(input: List<String>): Int {
-        val oxygenGeneratorRating =  filterByPosition(input,0, FilteringMethod.MOST_COMMON)
+        val oxygenGeneratorRating =  filterByPositionRecursively(input,0, FilteringMethod.MOST_COMMON)
             .joinToString( "" ).toInt(2)
-        val cO2ScrubberRating =  filterByPosition(input,0, FilteringMethod.LEAST_COMMON)
+        val cO2ScrubberRating =  filterByPositionRecursively(input,0, FilteringMethod.LEAST_COMMON)
             .joinToString( "" ).toInt(2)
         return oxygenGeneratorRating * cO2ScrubberRating
     }
