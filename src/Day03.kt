@@ -5,23 +5,16 @@ enum class FilteringMethod {
 fun main() {
 
     fun part1(input: List<String>): Int {
-        val list = mutableListOf<HashMap<Int, Int>>()
-        for (i in 0 until input[0].length) {
-            list.add(i, hashMapOf(Pair(0,0)))
-        }
-        for (v in input) {
-            for (i in v.indices) {
-                val bit = v[i].digitToInt()
-                list[i][bit] = list[i].getOrDefault(bit,0)+1
-            }
+        val list = mutableListOf<Map<Char, Int>>()
+        for (i in input[0].indices) {
+            list.add(input.groupingBy { it[i] }.eachCount())
         }
         var gammaRate = ""
         for (m in list) {
             gammaRate +=
-                if (m.getOrDefault(0, 0) > m.getOrDefault(1,0)) "0" else "1"
+                if (m.getOrDefault('0', 0) > m.getOrDefault('1',0)) "0" else "1"
         }
-
-        val total = ("1").repeat(input[0].length).toInt(2)
+        val total = "1".repeat(input[0].length).toInt(2)
         return gammaRate.toInt(2) * (total - gammaRate.toInt(2))
     }
 
@@ -36,7 +29,7 @@ fun main() {
             }
             res
         }.map { if (it > input.size - it) '1' else '0' }.joinToString("").toInt(2)
-        val total = ("1").repeat(input[0].length).toInt(2)
+        val total = "1".repeat(input[0].length).toInt(2)
         return (total - gammaRate) * gammaRate
     }
 
@@ -81,6 +74,7 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day03_test")
+    check(part1(testInput) == 198)
     check(part1f(testInput) == 198)
     check(part2(testInput) == 230)
 
