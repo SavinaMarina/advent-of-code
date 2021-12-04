@@ -1,4 +1,4 @@
-class Board() {
+class Board {
     var values = mutableListOf<Pair<Int, Boolean>>()
 
     override fun toString(): String {
@@ -29,7 +29,6 @@ class Board() {
 }
 
 fun main() {
-
 
     fun getBingoList(input: List<String>) =
         input[0].split(",").map { it.toInt() }
